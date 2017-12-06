@@ -16,10 +16,10 @@ I have tested the following on Raspbian 8 (jessie) using a Logitech C920 webcam.
 1. Test HTTP streaming manually:
 
         cvlc v4l2:///dev/video0:chroma=h264:width=800:height=600 :input-slave="alsa://hw:1,0" --sout '#transcode{aenc=ffmpeg{strict=-2},acodec=mp4a,ab=32}:http{mux=ts,dst=:8080}' -vvv
+    *Notes*:
 
-  *Notes*:
-    * Using the `mp4a` audio codec will allow you to stream from your Mac, PC and iOS devices.
-    * Raspbian 7 (wheezy) did not require `aenc=ffmpeg{strict=-2},` in the `#transcode` config.
+      * Using the `mp4a` audio codec will allow you to stream from your Mac, PC and iOS devices.
+      * Raspbian 7 (wheezy) did not require `aenc=ffmpeg{strict=-2},` in the `#transcode` config.
 
 1. In a [VLC client](https://www.videolan.org/) on your computer or phone, open http://192.168.0.x:8080/. If the audio and video from the camera are not streaming, something went wrong.
 
