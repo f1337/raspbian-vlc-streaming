@@ -62,7 +62,12 @@ I have tested the following on Raspbian 8 (jessie) using a Logitech C920 webcam.
         sudo mv ~/nginx-vlc /etc/nginx/sites-available/vlc
         sudo systemctl start nginx
 
+## Setup Certbot Auto-renewal
+
+1. `crontab -e`, and add the following:
+
+        43 0 * * * sudo certbot renew --quiet --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx"
+
 ## TODO
 
-* certbot cron job
 * update instructions for `systemd`?

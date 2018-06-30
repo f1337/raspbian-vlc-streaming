@@ -15,30 +15,30 @@ VLC_PORT=8080
 
 start()
 {
-	echo "Starting vlc ..."
-	sudo -u $VLC_USER cvlc v4l2:///dev/video0:chroma=h264:width=800:height=600 :input-slave="alsa://hw:1,0" --sout '#transcode{aenc=ffmpeg{strict=-2},acodec=mp4a,ab=32}:http{mux=ts,dst=:$VLC_PORT}' -vvv > /dev/null 2>&1  &
+  echo "Starting vlc ..."
+  sudo -u $VLC_USER cvlc v4l2:///dev/video0:chroma=h264:width=800:height=600 :input-slave='alsa://hw:1,0' --sout '#transcode{aenc=ffmpeg{strict=-2},acodec=mp4a,ab=32}:http{mux=ts,dst=:$VLC_PORT}' > /var/log/vlc 2>&1  &
 }
 
 stop()
 {
-	echo "Stopping vlc ..."
-	kill -9 $(pidof vlc) >/dev/null 2>&1
+  echo "Stopping vlc ..."
+  kill -9 $(pidof vlc) > /var/log/vlc 2>&1
 }
 
 case "$1" in
-	start)
-		start
-		;;
-	stop)
-		stop
-		;;
-	restart)
-		stop
-		start
-		;;
-	*)
-		echo "Usage: $0 {start|stop|restart}"
-		;;
+  start)
+  start
+  ;;
+  stop)
+  stop
+  ;;
+  restart)
+  stop
+  start
+  ;;
+  *)
+  echo "Usage: $0 {start|stop|restart}"
+  ;;
 esac
 
 exit 0
